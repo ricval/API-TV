@@ -1,0 +1,28 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+.header-nav{
+    background: linear-gradient(rgb(0, 67, 96) 0%, rgb(0, 36, 52) 100%) white;
+    padding: 30px;
+}
+.navbar-light .navbar-brand {
+    color: #dbb993;
+}
+
+.font-head{
+    font-family: 'Roboto';
+    font-size: 34px;
+    font-weight: 700;
+    color: #dbb993;
+}
+
+a{
+    text-decoration: none;
+}
+.size-thead{
+    padding: 30px;
+    height: 100px;
+    text-align:middle;
+}
