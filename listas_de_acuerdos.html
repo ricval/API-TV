@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=100%, initial-scale=1.0">
+    <title>Listas de Acuerdos</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-164475591-1');</script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+    <h1>Programa JS para cargar listas de acuerdos desde </h1>
+    
+    <button id="divcargando" class="btn btn-lg btn-light"  type="button" disabled>
+        <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></span>
+        Cargando...
+    </button>
+
+    <div class="container" id="tablaResultado" style="overflow:auto;" >
+        <table id="ListasTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Folio</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+<script src="listas-de-acuerdos.js"></script>
+
+</body>
+</html>
