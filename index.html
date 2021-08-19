@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/scripts.js"></script>
     <title>Listas de acuerdos</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="elem">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid header-nav">
             <a class="head-text font-head">ACUERDOS</a>
           </div>
-        </nav> 
-        <table class="table table-bordered">
-            <thead class="table-dark ">
-                <tr class="size-thead">
-                    <th scope="col">Expediente</th>
-                    <th scope="col">Tipo de Juicio</th>
-                    <th scope="col">Cantidad de Acuerdos</th>
-                    <th scope="col">Elabora Comunicación</th>
-                </tr>
-          </thead>
-      </table>
-      </div>
+        </nav>
+        <table class="table table-striped">
+            <thead class="align-items-center ">
+              <tr class="size-thead">
+                <th class="border-head " scope="col">Expediente</th>
+                <th class="border-head " scope="col">Tipo de Juicio</th>
+                <th class="border-head " scope="col">Cantidad de Acuerdos</th>
+                <th class="" scope="col">Elabora Comunicación</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="content-text">
+                    <th scope="row"> 1 14/2021</th>
+                    <td>Juicio Oral</td>
+                    <td>1</td>
+                    <td>Aquí va alguna información</td>
+                  </tr>
+                  <tr class="content-text">
+                    <th class="head-lateral-act" colspan="2" scope="row"> Actor</th>
+                    <td colspan="3">Bertha Palmille Ruiz Rocha</td>
+                  </tr>
+                  <tr class="content-text">
+                    <th class="head-lateral-dem" colspan="2" scope="row"> Demandado</th>
+                    <td class="head-lateral-dem" colspan="3">Juicio Oral</td>
+                  </tr>
+            </tbody>
+        </table>
+    </div>
      
 </body>
 </html>
