@@ -6,144 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilos.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/scripts.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <title>Listas de acuerdos</title>
 </head>
 <body>
-    <div class="container-fluid" id="elem">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid header-nav">
-          <a class="head-text font-head">ACUERDOS</a>
-        </div>
-      </nav>
-      <table class="table table-striped">
-        <thead class="align-items-center ">
-          <tr class="size-thead">
-            <th class="border-head " scope="col">Expediente</th>
-            <th class="border-head " scope="col">Tipo de Juicio</th>
-            <th class="border-head " scope="col">Cantidad de Acuerdos</th>
-            <th class="" scope="col">Elabora Comunicación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="content-text color-td">
-            <th scope="row"  class="content-td1"> 1 14/2021</th>
-            <td>Juicio Oral</td>
-            <td>1</td>
-            <td>Aquí va alguna información</td>
-          </tr>
-          <tr  class="head-lat-act">
+  <div class="container-fluid">
 
-          </tr>
-          <tr class="content-text">
-            <td colspan="2" class="shadow p-3 mb-5 bg-body rounded">
-            <table>
-                <tr class="head-lat-act" >
-                  <td class="td-second">
-                    Actor &nbsp;
-                  </td>
-                </tr>
-                <tr class=" head-lat-dem">
-                  <td class="td-second">
-                    Demandado &nbsp;
-                  </td>
-                </tr> 
-              </table>
-            </td>
-            <td colspan="3" class="head-table shadow p-3 mb-5 bg-body rounded">
-              <table>
-                <tr>
-                  <td class="content-text">
-                    BERTHA PALMILLE RUIZ ROCHA
-                  </td>
-                </tr>
-                <tr>
-                  <td class="content-text">
-                    JUAN CARLOS ALBERTO CARRILLO HERRERA
-                  </td>
-                </tr> 
-              </table>
-            </td>
-          </tr>
-          <!-- Aquí comienza otra fila -->
-          <tr class="content-text color-td">
-            <th scope="row" class="content-td1"> 2 14/2021</th>
-            <td>Juicio Oral</td>
-            <td>1</td>
-            <td>Aquí va alguna información</td>
-          </tr>
-          <tr class="content-text " class="border border-bottom-0 border-danger">
-            <td colspan="2" class="">
-              <table>
-                <tr class="head-lat-act" >
-                  <td class="td-second">
-                    Actor &nbsp;
-                  </td>
-                </tr>
-                <tr class=" head-lat-dem">
-                  <td class="td-second">
-                    Demandado &nbsp;
-                  </td>
-                </tr> 
-              </table>
-            </td>
-            <td colspan="3" class="head-table">
-              <table>
-                <tr>
-                  <td class="content-text">
-                    BERTHA PALMILLE RUIZ ROCHA
-                  </td>
-                </tr>
-                <tr>
-                  <td class="content-text">
-                    JUAN CARLOS ALBERTO CARRILLO HERRERA
-                  </td>
-                </tr> 
-              </table>
-            </td>
-          </tr>
-          <!-- Aquí comienza otra fila -->
-          <tr class="content-text color-td">
-            <th scope="row" class="content-td1"> 3 14/2021</th>
-            <td>Juicio Oral</td>
-            <td>1</td>
-            <td>Aquí va alguna información</td>
-          </tr>
-          <tr class="content-text">
-            <td colspan="2" class="shadow p-3 mb-5 bg-body rounded">
-              <table>
-                <tr class="head-lat-act" >
-                  <td class="td-second">
-                    Actor &nbsp;
-                  </td>
-                </tr>
-                <tr class=" head-lat-dem">
-                  <td class="td-second">
-                    Demandado &nbsp;
-                  </td>
-                </tr> 
-              </table>
-            </td>
-            <td colspan="3" class="head-table shadow p-3 mb-5 bg-body rounded">
-              <table>
-                <tr>
-                  <td class="content-text">
-                    BERTHA PALMILLE RUIZ ROCHA
-                  </td>
-                </tr>
-                <tr>
-                  <td class="content-text">
-                    JUAN CARLOS ALBERTO CARRILLO HERRERA
-                  </td>
-                </tr> 
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="row heading" style="height: 100%;">
+
+      <div class="col-10 col-xs-9 titulo-blanco">
+        Acuerdos
+      </div>
+
+      <div class="col-2 col-xs-3">
+        <img class="img-thumbnail" src="qr.jpg" alt="QR CODE HERE">
+      </div>
+
+    </div> <!-- end row-->
+
+    <div class="row subheading">
+    
+      <div class="col-3 col-xs-3 text-center pdng">Expediente</div>
+      <div class="col-3 col-xs-3 text-center bl">Tipo de Juicio</div>
+      <div class="col-3 col-xs-3 text-center bl">Cantidad de Acuerdos</div>
+      <div class="col-3 col-xs-3 text-center bl">Elabora Comunicación</div>
+
+    </div> <!-- end row -->
+
+    <!-- loop -->
+    
+      <div style="border-bottom: solid 4px #004360" class="row">
+
+        <div style="font-size:32px;" class="col">
+
+          <div class="row text-center pdng2" style="background-color: #dbb993; color:#7f6000;">
+
+            <div class="col-3 col-xs-3">
+              
+              <div class="row">
+                <div class="col-6 col-xs-6">{{ id }}</div>
+                <div class="col-6 col-xs-6">{{ fecha }}</div>
+              </div>
+
+            </div>
+
+            <div class="col-3 col-xs-3">{{ tipo de juicio }}</div>
+            <div class="col-3 col-xs-3">{{ cant }}</div>
+            <div class="col-3 col-xs-3"> {{ Comunicación }}</div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-3 col-xs-3 pdng2 lbl" style="background-color:#004360;">Actor</div>
+            <div class="col-9 col-xs-9 pdng2 uppercase">{{ nombre del actor }}</div>
+
+          </div>
+
+          <div class="row ">
+
+            <div class="col-3 col-xs-3 pdng2 lbl" style="background-color: #003045;">Demandado</div>
+            <div class="col-9 col-xs-9 pdng2 uppercase">{{ nombre del demandado }}</div>
+
+          </div>
+
+        </div>
+
+      </div> 
+    
+    <!--end loop-->
+
+  </div><!--- end container --> 
+  
      
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/scripts.js"></script>
+    
 </body>
 </html>
