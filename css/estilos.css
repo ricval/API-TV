@@ -2,6 +2,11 @@ body{
     padding: 0;
     margin: 0;
 }
+
+html{
+    scroll-behavior: smooth;
+}
+
 .heading{
     background: linear-gradient(rgb(0, 67, 96) 0%, rgb(0, 36, 52) 100%) white;
     padding: 16px 0;
