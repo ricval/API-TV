@@ -3,12 +3,7 @@ let listas_plataforma_web_api_url;
 $(document).ready(function() {
     $('#divcargando').hide();
 
-    $('#ListasTable').DataTable();
-
-    $('#tablaResultado').hide();
-
     resultadoConsulta(87826, 0);
-    $('#fecha').change("26 Ago 2021");
 });
 
 
@@ -33,59 +28,23 @@ function consulta(id = 0, anio = 0) {
 }
 
 function resultadoConsulta(autoridad, anio) {
-    $('#divcargando').show();
-    $('#tablaResultado').show();
-    $('#consultaJuzgado').val("");
-    // Si tiene datos, limpiar la tabla
-    if ($('#ListasTable').length > 0) {
-        $('#ListasTable').DataTable().clear();
-        $('#ListasTable').DataTable().destroy();
-    };
-
-    if (anio == 0) {
-        var currentYear = new Date().getFullYear();
-        anio = currentYear
-    }
-
     consulta(autoridad, anio);
     var nombreDistrito = "";
     var nombreAutoridad = "";
+    
     $.ajax({
         'url': listas_plataforma_web_api_url,
         'type': "GET",
         'dataType': "json",
         'success': function(result) {
             $.each(result, function(i, lista) {
-                if (i == 0) {
+                if (i < 3) {
                     nombreAutoridad = lista.autoridad;
                     nombreDistrito = lista.distrito;
-                    return false;
-                }
-            });
-            // DataTable
-            $('#ListasTable').DataTable({
-                'data': result,
-                'columns': [
-                    { 'data': "fecha", 'width': "40%" },
-                    { 'data': "folio", 'width': "40%" },
-                ],
-                'pageLength': 10,
-                "order": [
-                    [0, "desc"]
-                ],
-                'language': {
-                    'lengthMenu': "Mostrar _MENU_",
-                    'search': "Filtrar:",
-                    'zeroRecords': "Cargando información...",
-                    'info': "Página _PAGE_ de _PAGES_",
-                    'infoEmpty': "No hay registros",
-                    'infoFiltered': "(filtrados desde _MAX_ registros totales)",
-                    'oPaginate': {
-                        'sFirst': "Primero",
-                        'sLast': "Último",
-                        'sNext': "Siguiente",
-                        'sPrevious': "Anterior"
-                    }
+                    $('#fecha').text(lista.fecha);
+                    $('#folio').text(lista.folio);
+                    $('.registro').clone().appendTo( $(".container") );
+                    return;
                 }
             });
             $('#divcargando').hide();
