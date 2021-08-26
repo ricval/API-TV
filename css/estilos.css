@@ -1,16 +1,24 @@
 body{
-    padding: 0;
     margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-html{
-    scroll-behavior: smooth;
+.loop{
+    display:inline-block;
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.scroll-row{
+    animation: scroll 160s linear forwards; /* referring directly to the animation's @keyframe declaration */
+    position: relative;
 }
 
 .heading{
     background: linear-gradient(rgb(0, 67, 96) 0%, rgb(0, 36, 52) 100%) white;
-    padding: 16px 0;
-    
+    padding: 16px 0; 
 }
 
 .uppercase{
@@ -36,9 +44,13 @@ html{
 }
 
 .lbl{
-    text-align: right; 
-    font-weight: 600; 
     color:#dbb993;
+    font-weight: 600; 
+    text-align: right; 
+}
+
+.col-bk{
+    background-color: #fff;
 }
   
 .titulo-blanco{
@@ -50,7 +62,12 @@ html{
    
 .colors{
     background:#003045;
-    color: #212530;
     background-color: #004360;
+    color: #212530;
     color: #dbb993;
+}
+
+@keyframes scroll {
+    from { top: 0px; }
+    to { top: -7500px; }
 }
