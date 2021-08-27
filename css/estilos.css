@@ -7,13 +7,16 @@ body{
 .loop{
     display:inline-block;
     height: 100%;
-    margin: 0 auto;
     width: 100%;
 }
 
 .scroll-row{
-    animation: scroll 160s linear forwards; /* referring directly to the animation's @keyframe declaration */
-    position: relative;
+    /*animation-timing-function: steps(5, end);*/
+    /*animation: scroll 360s linear infinite; /* referring directly to the animation's @keyframe declaration */
+    animation: scroll 500s linear infinite backwards;
+    /*animation-timing-function:ease-in-out;*/
+    position:relative;
+    /*transition: ease-out;*/
 }
 
 .heading{
@@ -68,6 +71,14 @@ body{
 }
 
 @keyframes scroll {
-    from { top: 0px; }
-    to { top: -7500px; }
+    /*from { top: 0; }
+    to{ top:-22000px; }*/
+
+    from {
+       bottom: 0;
+    }
+    
+    to {
+       bottom: 7500px;
+    }
 }

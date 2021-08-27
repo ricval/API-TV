@@ -36,7 +36,7 @@ function resultadoConsulta(autoridad, anio) {
     .then(data => {
         $.each(data, function(index, datos){
             $('.loop').append(` 
-            <div class="scroll-row">
+            <div id="go" class="scroll-row">
                 <div style="border-bottom: solid 4px #004360" class="row">
 
                 <div style="font-size:32px;" class="col">
