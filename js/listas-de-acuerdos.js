@@ -30,7 +30,6 @@ function consulta(id = 0, anio = 0) {
 function resultadoConsulta(autoridad, anio) {
     consulta(autoridad, anio);
     var nombreDistrito = "";
-    var nombreAutoridad = "";
     
     $.ajax({
         'url': listas_plataforma_web_api_url,
@@ -39,10 +38,14 @@ function resultadoConsulta(autoridad, anio) {
         'success': function(result) {
             $.each(result, function(i, lista) {
                 if (i < 3) {
+                    console.log(i);
                     nombreAutoridad = lista.autoridad;
-                    nombreDistrito = lista.distrito;
-                    $('#fecha').text(lista.fecha);
-                    $('#folio').text(lista.folio);
+                    $('#id').text(i);
+                    $('#expediente').text(lista.expediente);
+                    $('#tipo_juicio').text(lista.tipo_juicio);
+                    $('#cant').text(lista.folio);
+                    $('#actor').text(lista.actor);
+                    $('#demandado').text(lista.demandado);
                     $('.registro').clone().appendTo( $(".container") );
                     return;
                 }
