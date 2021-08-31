@@ -45,18 +45,15 @@ function resultadoConsulta(autoridad, anio){
                     ciclo(inicio,final,data);
                     inicio = final;
                     final = final + cantidad;
+                    
 
                     if(final >= Object.keys(data).length){
                         inicio = 0;
                         final = cantidad;
                     }
 
-                    
-
                 },interv);
-                    
-                
-
+ 
             }
         );
 }
@@ -69,46 +66,26 @@ function ciclo(inicio, final, datos){
 }
 
 function print_res(datos){
+    
     $('.loop').append(`
-        <div id="go" class="scroll-row">
-            <div style="border-bottom: solid 4px #004360" class="row">
+    <div id="go" class="scroll-row">
+        <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
             <div style="font-size:32px;" class="col">
-
-            <div class="row text-center pdng2" style="background-color: #dbb993; color:#7f6000;">
-
-                <div class="col-3 col-xs-3">
-
-                <div class="row">
-                    <div  class="col-6 col-xs-6">` + datos.id + `</div>
-                    <div  class="col-6 col-xs-6">` + datos.fecha + `</div>
-                </div>
-
-                </div>
-
-                <div class="col-3 col-xs-3">` + datos.tipo_juicio + `</div>
-                <div class="col-3 col-xs-3">` + datos.tipo_acuerdo + `</div>
-                <div class="col-3 col-xs-3"> </div>
-
+                <div class="row text-center pdng2" style="background-color: #eeeeee; color:#000;">
+                    <div class="col-1 col-xs-3"></div>
+                    <div class="col-2 col-xs-3">
+                        <div class="row">
+                            <div  class="col-6 col-xs-6">` + datos.id + `</div>
+                            <div  class="col-6 col-xs-6">` + datos.fecha + `</div>
+                        </div>
+                    </div>
+                    <div class="col-2 col-xs-3">` + datos.tipo_juicio + `</div>
+                    <div class="col-4 col-xs-3">` + datos.actor  + `</div>
+                    <div class="col-3 col-xs-3">` + datos.demandado + ` </div>
+                </div> 
             </div>
-
-            <div class="row">
-
-                <div class="col-3 col-xs-3 pdng2 lbl" style="background-color:#004360;">Actor</div>
-                <div class="col-9 col-xs-9 pdng2 uppercase col-bk">` + datos.actor + `</div>
-
-            </div>
-
-            <div class="row ">
-
-                <div class="col-3 col-xs-3 pdng2 lbl" style="background-color: #003045;">Demandado</div>
-                <div class="col-9 col-xs-9 pdng2 uppercase col-bk">` + datos.demandado + `</div>
-
-            </div>
-
-            </div>
-
         </div>
-        </div>
+    </div>
     `);
 }
 
