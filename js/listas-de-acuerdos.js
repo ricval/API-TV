@@ -35,6 +35,7 @@ function resultadoConsulta(autoridad, anio){
     var inicio = 0;
     var final = cantidad;
     var interv = 8000;
+    
 
     fetch(listas_plataforma_web_api_url)
         .then(res => res.json())
@@ -50,6 +51,7 @@ function resultadoConsulta(autoridad, anio){
                     if(final >= Object.keys(data).length){
                         inicio = 0;
                         final = cantidad;
+                       
                     }
 
                 },interv);
@@ -66,17 +68,20 @@ function ciclo(inicio, final, datos){
 }
 
 function print_res(datos){
+    var yearObj = new Date(datos.fecha);
+    var year = yearObj.getFullYear();
     
+
     $('.loop').append(`
     <div id="go" class="scroll-row">
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
             <div style="font-size:32px;" class="col">
                 <div class="row text-center pdng2" style="background-color: #eeeeee; color:#000;">
-                    <div class="col-1 col-xs-3"></div>
+                    <div class="col-1 col-xs-3" style="color:red; font-weight:700;">`+ i +`</div>
                     <div class="col-2 col-xs-3">
                         <div class="row">
                             <div  class="col-6 col-xs-6">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6">` + datos.fecha + `</div>
+                            <div  class="col-6 col-xs-6">` + year + `</div>
                         </div>
                     </div>
                     <div class="col-2 col-xs-3">` + datos.tipo_juicio + `</div>
