@@ -46,11 +46,9 @@ function resultadoConsulta(autoridad, anio){
                 ciclo(inicio,final,data);
                 inicio = final;
                 final = final + cantidad;
-
-
-                if(c = 0 ){ color ="#fff";  c = 1;}else{ color = "#004360"; c = 0;}
+    
                                        
-                if(final >= Object.keys(data).length){
+                if(final > Object.keys(data).length){
                     inicio = 0;
                     final = cantidad;
                     
@@ -66,14 +64,12 @@ function ciclo(inicio, final, datos){
     $('.loop').html('');
     for(i = inicio; i < final; i++){   
         if(c % 2 == 0){
-            bk_color = "#fefefe";
+            bk_color = "#F0EFEF";
             color = "#0D0D0D";
-            cln = "#0C0C0C";
             c++;
         }else{
-            bk_color =  "#004360";
-            color = "#ffffff";
-            cln = "#F7F7F7";
+            bk_color =  "#FEFEFE";
+            color = "#0D0D0D";
             c = 0;
         }
         print_res(datos[i],color);
@@ -89,7 +85,7 @@ function print_res(datos, color){
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
             <div style="font-size:32px;" class="col">
                 <div class="row text-center pdng2" style="background-color: ` + bk_color + `; color:` + color + `;">
-                    <div class="col-1 col-xs-3" style="color:` + cln + `; font-weight:900;">`+ i +`</div>
+                    <div class="col-1 col-xs-3" style="color:#0C0C0C; font-weight:900;">`+ i +`</div>
                     <div class="col-2 col-xs-3">
                         <div class="row">
                             <div  class="col-6 col-xs-6">` + datos.id + `</div>
