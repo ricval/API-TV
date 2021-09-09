@@ -1,4 +1,5 @@
 body{
+    font-family: 'Roboto, Oswald';
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -22,9 +23,7 @@ body{
     padding: 16px 0; 
     position: sticky;
     top:0;
-    vertical-align: middle;
 }
-
 .uppercase{
     text-transform: uppercase;
 }
@@ -32,15 +31,16 @@ body{
 .subheading{
     background: #212530;
     color:#dbb993;
+    flex: 1 1 auto;
     font-family: sans-serif;
     font-size:33px;
     position: sticky;
-    
+    vertical-align: middle;
 }
 
 .bl{
     border-left: solid 1px #dbb993;
-    padding: 35px 15px;
+    padding: 35px 18px;
 }
 .pdng{
     padding: 35px 15px;
@@ -49,10 +49,14 @@ body{
     padding: 25px 15px;
 }
 
+.txt-lb{
+    font-size: 22px;
+    padding: 15px 12px;
+}
 .lbl{
     color:#dbb993;
     font-weight: 600; 
-    text-align: right; 
+    text-align: right;
 }
 
 .col-bk{
@@ -63,6 +67,7 @@ body{
     color: #dbb993;
     font-family: 'Oswald', sans-serif;
     font-size: 65px;
+    margin-top: 25px;
     text-transform: capitalize;
 }
    
@@ -89,11 +94,6 @@ body{
     position:fixed;
     top: auto;
     width: 150px;
+    padding: 10px;
 
-}
-
-
-@keyframes scroll {
-    from{ top: 0; }
-    to{  bottom: -7850px; }
 }

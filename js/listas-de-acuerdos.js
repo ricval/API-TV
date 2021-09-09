@@ -36,7 +36,7 @@ function resultadoConsulta(autoridad, anio){
     var final = cantidad;
     var interv = 8000;
     
-
+    
     fetch(listas_plataforma_web_api_url)
         .then(res => res.json())
         .then(data => {
@@ -46,21 +46,19 @@ function resultadoConsulta(autoridad, anio){
                 ciclo(inicio,final,data);
                 inicio = final;
                 final = final + cantidad;
-    
-                                       
+                                        
                 if(final > Object.keys(data).length){
                     inicio = 0;
                     final = cantidad;
-                    
                 }
-
-                },interv);
-            
+            },interv);
          });
 }
 
 function ciclo(inicio, final, datos){
     var c = 0;
+    
+
     $('.loop').html('');
     for(i = inicio; i < final; i++){   
         if(c % 2 == 0){
@@ -76,31 +74,33 @@ function ciclo(inicio, final, datos){
     }
 }
 
+ 
 function print_res(datos, color){
     var yearObj = new Date(datos.fecha);
     var year = yearObj.getFullYear();
- 
+    var n = i + 1;
+    document.getElementById("myTxt").innerHTML = datos.lista_de_acuerdo_id;
     $('.loop').append(`
-    <div id="go" class="scroll-row">
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
             <div style="font-size:32px;" class="col">
                 <div class="row text-center pdng2" style="background-color: ` + bk_color + `; color:` + color + `;">
-                    <div class="col-1 col-xs-3" style="color:#0C0C0C; font-weight:900;">`+ i +`</div>
-                    <div class="col-2 col-xs-3">
+                    <div class="col-1 col-xs-1" style="color:#0C0C0C; font-weight:900;">`+ n +`</div>
+                    <div class="col-2 col-xs-2">
                         <div class="row">
-                            <div  class="col-6 col-xs-6">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6">` + year + `</div>
+                            <div  class="col-6 col-xs-6 txt-lb">` + datos.id + `</div>
+                            <div  class="col-6 col-xs-6 txt-lb">` + year + `</div>
                         </div>
                     </div>
-                    <div class="col-2 col-xs-3">` + datos.tipo_juicio + `</div>
-                    <div class="col-4 col-xs-3">` + datos.actor  + `</div>
-                    <div class="col-3 col-xs-3">` + datos.demandado + ` </div>
+                    <div class="col-2 col-xs-3 txt-lb">` + datos.tipo_juicio + `</div>
+                    <div class="col-4 col-xs-3 txt-lb">` + datos.actor  + `</div>
+                    <div class="col-3 col-xs-3 txt-lb">` + datos.demandado + ` </div>
                 </div> 
             </div>
         </div>
-    </div>
     `);
 }
+    
 
+  
 
 
