@@ -1,4 +1,5 @@
 let listas_plataforma_web_api_url;
+let id_autoridad;
 
 $(document).ready(function() {
     $('#divcargando').hide();
@@ -7,23 +8,23 @@ $(document).ready(function() {
 });
 
 function consulta(id = 0, anio = 0) {
-    switch ("localhost"/*location.hostname*/) {
-        case "localhost":
-            // Para desarrollo
-            listas_plataforma_web_api_url = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id=" + id;
-            break;
-        case "127.0.0.1":
-            // Para desarrollo
-            listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-            break;
-        case "172.30.37.233":
-            // Para desarrollo
-            listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-            break;
-        default:
-            // Para producción
-            listas_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-    }
+        switch ("localhost"/*location.hostname*/) {
+            case "localhost":
+                // Para desarrollo
+                listas_plataforma_web_api_url = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id=" + id;
+                break;
+            case "127.0.0.1":
+                // Para desarrollo
+                listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
+                break;
+            case "172.30.37.233":
+                // Para desarrollo
+                listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
+                break;
+            default:
+                // Para producción
+                listas_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
+        }    
 }
 
 function resultadoConsulta(autoridad, anio){
@@ -57,8 +58,6 @@ function resultadoConsulta(autoridad, anio){
 
 function ciclo(inicio, final, datos){
     var c = 0;
-    
-
     $('.loop').html('');
     for(i = inicio; i < final; i++){   
         if(c % 2 == 0){

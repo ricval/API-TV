@@ -84,7 +84,7 @@ body{
     width: auto;
 }
 .marca-agua {
-    background:url("imagen/pjecz-negro-plano.svg");
+    background-image:url("../imagen/pjecz-negro-plano.svg");
     display: block;
     filter: invert(1);
     height: auto;
