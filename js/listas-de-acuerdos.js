@@ -3,54 +3,116 @@ let id_autoridad;
 
 $(document).ready(function() {
     $('#divcargando').hide();
-
+    var id_autoridad = getParamet();
+    //document.getElementById("myTxt").innerHTML = id_autoridad;
+    //alert(id_autoridad);
     resultadoConsulta(87826, 0);
 });
 
-function consulta(id = 0, anio = 0) {
-        switch ("localhost"/*location.hostname*/) {
-            case "localhost":
-                // Para desarrollo
-                listas_plataforma_web_api_url = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id=" + id;
-                break;
-            case "127.0.0.1":
-                // Para desarrollo
-                listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-                break;
-            case "172.30.37.233":
-                // Para desarrollo
-                listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-                break;
-            default:
-                // Para producción
-                listas_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-        }    
+
+function getParamet()      {
+   const urlParams = new URLSearchParams(window.location.search);
+   return urlParams.get('id')
+}
+
+function consulta(api, id = 0, anio = 0) {
+    
+    switch(api){
+       case "listas" :
+            switch(location.hostname) {
+                case "localhost":
+                    // Para desarrollo
+                    listas_plataforma_web_api_url = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id=" + id;
+                    break;
+                case "127.0.0.1":
+                    // Para desarrollo
+                    listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?lista_de_acuerdo" + id + '&ano=' + anio;
+                    break;
+                case "172.30.37.233":
+                    // Para desarrollo
+                    listas_plataforma_web_api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
+                    break;
+                default:
+                    // Para producción
+                    listas_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
+            } 
+            break;
+        case "autoridades":
+            switch (location.hostname) {
+                case "localhost":
+                    // Para desarrollo
+                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
+                    break;
+                case "127.0.0.1":
+                    // Para desarrollo
+                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
+                    break;
+                case "172.30.37.233":
+                    // Para desarrollo
+                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
+                    break;
+                default:
+                    // Para producción
+                    autoridades_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades?distrito_id=" + id;
+            }
+            break;
+        case "distritos":
+            switch (location.hostname) {
+                case "localhost":
+                    // Para desarrollo
+                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
+                    break;
+                case "127.0.0.1":
+                    // Para desarrollo
+                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
+                    break;
+                case "172.30.37.233":
+                    // Para desarrollo
+                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
+                    break;
+                default:
+                    // Para producción
+                    distritos_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/distritos";
+            }
+            break;
+     }
+}
+
+function getAutoridades(distrito) {
+    
+    consulta("autoridades", distrito);
+    
+
+    fetch(autoridades_plataforma_web_api_url)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
 }
 
 function resultadoConsulta(autoridad, anio){
-    consulta(autoridad, anio);
-
+    
+    consulta("listas", autoridad, anio);
     $(".loop").html('<div class="row"><h1 class="text-center">cargando...</h1></div>');
-
+    
     var cantidad = 3;
     var inicio = 0;
     var final = cantidad;
     var interv = 8000;
     
-    
     fetch(listas_plataforma_web_api_url)
-        .then(res => res.json())
-        .then(data => {
-           
-            setInterval(function(){ 
-
-                ciclo(inicio,final,data);
-                inicio = final;
-                final = final + cantidad;
-                                        
-                if(final > Object.keys(data).length){
-                    inicio = 0;
-                    final = cantidad;
+    .then(res => res.json())
+    .then(data => {
+        
+        setInterval(function(){ 
+            
+            ciclo(inicio,final,data);
+            inicio = final;
+            final = final + cantidad;
+            
+            if(final > Object.keys(data).length){
+                inicio = 0;
+                final = cantidad;
                 }
             },interv);
          });
@@ -78,7 +140,6 @@ function print_res(datos, color){
     var yearObj = new Date(datos.fecha);
     var year = yearObj.getFullYear();
     var n = i + 1;
-    document.getElementById("myTxt").innerHTML = datos.lista_de_acuerdo_id;
     $('.loop').append(`
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
             <div style="font-size:32px;" class="col">
