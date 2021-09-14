@@ -1,0 +1,11 @@
+{
+  "id": 6,
+  "distrito_id": 2,
+  "distrito": "Distrito Judicial de Monclova",
+  "materia_id": 3,
+  "materia": "FAMILIAR",
+  "autoridad": "Juzgado Primero de Primera Instancia en Materia Familiar",
+  "autoridad_corta": "J. 1ro. Familiar",
+  "organo_jurisdiccional": "JUZGADO DE PRIMERA INSTANCIA",
+  "audiencia_categoria": "CIVIL FAMILIAR MERCANTIL LETRADO TCYA"
+}

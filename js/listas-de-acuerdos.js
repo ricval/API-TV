@@ -10,7 +10,7 @@ $(document).ready(function() {
 });
 
 
-function getParamet()      {
+function getParamet(){
    const urlParams = new URLSearchParams(window.location.search);
    return urlParams.get('id')
 }
@@ -113,9 +113,10 @@ function resultadoConsulta(autoridad, anio){
             if(final > Object.keys(data).length){
                 inicio = 0;
                 final = cantidad;
-                }
-            },interv);
-         });
+            }
+            
+        },interv);
+    });
 }
 
 function ciclo(inicio, final, datos){
