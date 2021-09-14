@@ -10,17 +10,16 @@ $(document).ready(function(){
     setname(id_autoridad);
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
-    get_listas_acuerdos(id_autoridad);
-
-
+    var id_list_aut = get_listas_acuerdos(id_autoridad);
+    
     // imprimir listas_de_acuerdos_acuerdos
-
+    
     var cantidad = 5; // cantidad de registros en la lista
     var inicio = 0;
     var final = cantidad;
     var interv = 8000;
 
-    fetch(get_api_url_acuerdo(id_autoridad))
+    fetch(get_api_url_acuerdo(id_list_aut))
     .then(res => res.json())
     .then(data => {
         
@@ -60,15 +59,17 @@ function setname(id){
     var api_url;
 
     switch(location.hostname){
-        case "localhost": api_url = "http://localhost/API-TV/js/autoridad"+id+".json"; break;
+        case "localhost": api_url = "http://justicia:8001/autoridad/"+id; break;
         case "172.30.37.233:8001": api_url = 'http://justicia:8001/autoridades/'+id; break;
         case "127.0.0.1": api_url = 'http://justicia:8001/autoridades/'+id; break;
-        default: api_url = 'https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/'+id; break;
+        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/"+id; break;
     }
-
-
-    fetch(api_url, {mode:'no-cors'}).then(res => res.json()).then(data => {
-        $("#myTxt").html(data.autoridad_corta);
+    
+    fetch(api_url)
+    .then(res => res.json())
+    .then(data => {
+        
+        $("#myTxt").html(data.autoridad_corta + "  -  "+ data.autoridad);
     });
 }
 
@@ -78,54 +79,45 @@ function setname(id){
 */
 function get_listas_acuerdos(id){
     
-    
-    var norepeat = [];
-    var i = 0;
-    
-    var api_url;
-
+    var api_url ;
     switch(location.hostname){
-        case "localhost": api_url = "http://localhost/API-TV/js/lista_acuerdos_autoridad_"+id+".json"; break;
-        case "172.30.37.233:8001": api_url = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        case "127.0.0.1": api_url = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        default: 'https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id='+id; break;
+        case "localhost": api_url = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "172.30.37.233:8001": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "127.0.0.1": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
     }
-
     
-    fetch(api_url, {mode:'no-cors'}).then(res => res.json()).then(data => { 
-
-        for(i = 0; i < Object.keys(data).length; i++){
+   
+        var id_result = fetch(api_url)
+        .then(res => res.json())
+        .then(data => { 
+           
+            return data[0].id;
             
-            if(!norepeat.includes(data[i].id)){
-                norepeat.push(data[i].id);
-            }
-            
-        }
-
-        
-    });
-
+        });
+        console.log(id_result);
+    
+    
     
     
 }
 
 
 function get_api_url_acuerdo(id){
-
+    
     var api_url_acuerdo;
-
+    
     switch(location.hostname){
-        case "localhost": api_url_acuerdo = "http://localhost/API-TV/js/lista_acuerdo.json"; break;
-        case "172.30.37.233:8001": api_url_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        case "localhost": api_url_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        case "172.30.37.233:8001": api_url_acuerdo = "http://172.30.37.233:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
         case "127.0.0.1": api_url_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
-        default: api_url_acuerdo = 'https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id='+id; break;
+        default: api_url_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
     }
-
+    console.log(api_url_acuerdo);
     return api_url_acuerdo;
 }
 
-
-          
+       
 
 function ciclo(inicio, final, datos){
     var c = 0;
@@ -146,8 +138,9 @@ function ciclo(inicio, final, datos){
 
  
 function print_res(datos, color){
-    var yearObj = new Date(datos.fecha);
-    var year = yearObj.getFullYear();
+    //var yearObj = new Date(datos.fecha);
+    //var year = yearObj.getFullYear();
+    //console.log(year)
     var n = i + 1;
     $('.loop').append(`
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
@@ -157,7 +150,7 @@ function print_res(datos, color){
                     <div class="col-2 col-xs-2">
                         <div class="row">
                             <div  class="col-6 col-xs-6 txt-lb">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6 txt-lb">` + year + `</div>
+                            <div  class="col-6 col-xs-6 txt-lb">` + datos.fecha + `</div>
                         </div>
                     </div>
                     <div class="col-2 col-xs-3 txt-lb">` + datos.tipo_juicio + `</div>

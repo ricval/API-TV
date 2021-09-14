@@ -3,23 +3,29 @@ let id_autoridad;
 
 $(document).ready(function() {
     $('#divcargando').hide();
+
+    //obtener el ID en el parámetro
     var id_autoridad = getParamet();
-    //document.getElementById("myTxt").innerHTML = id_autoridad;
-    //alert(id_autoridad);
+    
+
+    //Agregar el nombre corto de la autoridad en el encabezado
+    setname(id_autoridad);
+
+    //Consultar las listas de acuerdos relacionadas con la autoridad
+    get_autoridad_id(id_autoridad);
+
     resultadoConsulta(87826, 0);
 });
 
 
 function getParamet(){
    const urlParams = new URLSearchParams(window.location.search);
-   return urlParams.get('id')
+   return urlParams.get('id');
 }
 
-function consulta(api, id = 0, anio = 0) {
+function consulta(consulta = "localhost", id = 0, anio = 0) {
     
-    switch(api){
-       case "listas" :
-            switch(location.hostname) {
+            switch(consulta) {
                 case "localhost":
                     // Para desarrollo
                     listas_plataforma_web_api_url = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id=" + id;
@@ -35,65 +41,76 @@ function consulta(api, id = 0, anio = 0) {
                 default:
                     // Para producción
                     listas_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + '&ano=' + anio;
-            } 
-            break;
-        case "autoridades":
-            switch (location.hostname) {
-                case "localhost":
-                    // Para desarrollo
-                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
-                    break;
-                case "127.0.0.1":
-                    // Para desarrollo
-                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
-                    break;
-                case "172.30.37.233":
-                    // Para desarrollo
-                    autoridades_plataforma_web_api_url = "http://172.30.37.233:8001/autoridades?distrito_id=" + id;
-                    break;
-                default:
-                    // Para producción
-                    autoridades_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades?distrito_id=" + id;
-            }
-            break;
-        case "distritos":
-            switch (location.hostname) {
-                case "localhost":
-                    // Para desarrollo
-                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
-                    break;
-                case "127.0.0.1":
-                    // Para desarrollo
-                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
-                    break;
-                case "172.30.37.233":
-                    // Para desarrollo
-                    distritos_plataforma_web_api_url = "http://172.30.37.233:8001/distritos";
-                    break;
-                default:
-                    // Para producción
-                    distritos_plataforma_web_api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/distritos";
-            }
-            break;
-     }
+            }     
 }
 
-function getAutoridades(distrito) {
-    
-    consulta("autoridades", distrito);
-    
 
-    fetch(autoridades_plataforma_web_api_url)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        });
+/*
+** Establece el nombre de la autoridad de acuerdo al ID recibido en la URL
+*/
+function setname(id){
+    
+    var api_url ;
+
+    switch(location.hostname){
+        case "localhost": api_url = "http://justicia:8001/autoridad/"+id; break;
+        case "172.30.37.233:8001": api_url = 'http://justicia:8001/autoridades/'+id; break;
+        case "127.0.0.1": api_url = 'http://justicia:8001/autoridades/'+id; break;
+        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/"+id; break;
+    }
+    console.log(api_url);
+    fetch(api_url)
+    .then(response => response.json())
+    .then(data => {
+        $("#myTxt").html(data.autoridad_corta);
+    });
 }
 
-function resultadoConsulta(autoridad, anio){
+
+/*
+** Consultar las listas de acuerdos de la respectiva autoridad
+*/
+function get_autoridad_id(id){
     
-    consulta("listas", autoridad, anio);
+    var norepeat = [];
+    var i = 0;
+    
+    var api_url;
+
+    switch(location.hostname){
+        case "localhost": api_url = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "172.30.37.233:8001": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "127.0.0.1": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
+    }
+    console.log(api_url)
+    fetch(api_url)
+    .then(response  => response.json())
+    .then(data => { 
+        console.log(data.autoridad);
+        for(i = 0; i < Object.keys(data).length; i++){
+            
+            if(!norepeat.includes(data[i].id)){
+                norepeat.push(data[i].id);
+            }
+            
+        }
+        
+        
+    });
+}
+
+
+/*
+** imprimir listas_de_acuerdos_acuerdos
+*/
+function resultadoConsulta(id, anio){
+
+    
+    consulta("localhost", id, anio);
+
     $(".loop").html('<div class="row"><h1 class="text-center">cargando...</h1></div>');
+    console.log(id)
     
     var cantidad = 3;
     var inicio = 0;
@@ -101,9 +118,8 @@ function resultadoConsulta(autoridad, anio){
     var interv = 8000;
     
     fetch(listas_plataforma_web_api_url)
-    .then(res => res.json())
+    .then(response  => response.json())
     .then(data => {
-        
         setInterval(function(){ 
             
             ciclo(inicio,final,data);
@@ -138,8 +154,8 @@ function ciclo(inicio, final, datos){
 
  
 function print_res(datos, color){
-    var yearObj = new Date(datos.fecha);
-    var year = yearObj.getFullYear();
+    //var yearObj = new Date();
+    //var year = yearObj.getFullYear();
     var n = i + 1;
     $('.loop').append(`
         <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
@@ -149,7 +165,7 @@ function print_res(datos, color){
                     <div class="col-2 col-xs-2">
                         <div class="row">
                             <div  class="col-6 col-xs-6 txt-lb">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6 txt-lb">` + year + `</div>
+                            <div  class="col-6 col-xs-6 txt-lb">` + datos.fecha + `</div>
                         </div>
                     </div>
                     <div class="col-2 col-xs-3 txt-lb">` + datos.tipo_juicio + `</div>
