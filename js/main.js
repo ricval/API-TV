@@ -10,33 +10,38 @@ $(document).ready(function(){
     setname(id_autoridad);
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
-    var id_list_aut = get_listas_acuerdos(id_autoridad);
-    
-    // imprimir listas_de_acuerdos_acuerdos
-    
-    var cantidad = 5; // cantidad de registros en la lista
-    var inicio = 0;
-    var final = cantidad;
-    var interv = 8000;
-
-    fetch(get_api_url_acuerdo(id_list_aut))
+    var id_list_aut;
+     
+    fetch(get_api_url_list_de_acu_aut(id_autoridad))
     .then(res => res.json())
-    .then(data => {
+    .then(data => { 
         
-        setInterval(function(){ 
-            
-            ciclo(inicio,final,data);
-            inicio = final;
-            final = final + cantidad;
-            
-            if(final > Object.keys(data).length){
-                inicio = 0;
-                final = cantidad;
-            }
-            
-        },interv);
-    });
+        // imprimir listas_de_acuerdos_acuerdos
+    
+        var cantidad = 5; // cantidad de registros en la lista
+        var inicio = 0;
+        var final = cantidad;
+        var interv = 8000;
 
+        fetch(get_api_url_list_acu(data[0].id))
+        .then(res => res.json())
+        .then(result => {
+            
+                setInterval(function(){ 
+                    
+                    ciclo(inicio,final,result);
+                    inicio = final;
+                    final = final + cantidad;
+                    
+                    if(final > Object.keys(result).length){
+                        inicio = 0;
+                        final = cantidad;
+                    }
+                    
+                },interv);
+           
+        });
+    });
 });
 
 
@@ -56,14 +61,7 @@ function get_id_aut(){
 */
 function setname(id){
     
-    var api_url;
-
-    switch(location.hostname){
-        case "localhost": api_url = "http://justicia:8001/autoridad/"+id; break;
-        case "172.30.37.233:8001": api_url = 'http://justicia:8001/autoridades/'+id; break;
-        case "127.0.0.1": api_url = 'http://justicia:8001/autoridades/'+id; break;
-        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/"+id; break;
-    }
+    var api_url = get_api_url_autoridades(id);
     
     fetch(api_url)
     .then(res => res.json())
@@ -75,50 +73,45 @@ function setname(id){
 
 
 /*
-** Consultar las listas de acuerdos de la respectiva autoridad
+**  Funciones para identificar la URL de las APIs
 */
-function get_listas_acuerdos(id){
-    
-    var api_url ;
+function get_api_url_autoridades(id){
+    var autoridad_id_url;
     switch(location.hostname){
-        case "localhost": api_url = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        case "172.30.37.233:8001": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        case "127.0.0.1": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
+        case "localhost": autoridad_id_url = "http://justicia:8001/autoridad/"+id; break;
+        case "172.30.37.233:8001": autoridad_id_url = 'http://justicia:8001/autoridades/'+id; break;
+        case "127.0.0.1": autoridad_id_url ='http://justicia:8001/autoridades/'+id; break;
+        default: autoridad_id_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/"+id; break;
     }
-    
-   
-        var id_result = fetch(api_url)
-        .then(res => res.json())
-        .then(data => { 
-           
-            return data[0].id;
-            
-        });
-        console.log(id_result);
-    
-    
-    
-    
+    return autoridad_id_url;
 }
 
-
-function get_api_url_acuerdo(id){
-    
-    var api_url_acuerdo;
-    
+function get_api_url_list_de_acu_aut(id){
+    var lista_acuerdo_autoridad;
     switch(location.hostname){
-        case "localhost": api_url_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
-        case "172.30.37.233:8001": api_url_acuerdo = "http://172.30.37.233:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
-        case "127.0.0.1": api_url_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
-        default: api_url_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        case "localhost": lista_acuerdo_autoridad = "http://justicia:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "172.30.37.233:8001": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        case "127.0.0.1": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
+        default: lista_acuerdo_autoridad = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
     }
-    console.log(api_url_acuerdo);
-    return api_url_acuerdo;
+    return lista_acuerdo_autoridad;
+}
+
+function get_api_url_list_acu(id){
+    var lista_acuerdo_acuerdo;
+    switch(location.hostname){
+        case "localhost": lista_acuerdo_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        case "172.30.37.233:8001": lista_acuerdo_acuerdo = "http://172.30.37.233:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        case "127.0.0.1": lista_acuerdo_acuerdo = "http://justicia:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+        default: lista_acuerdo_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
+    }
+    return lista_acuerdo_acuerdo;
 }
 
        
-
+/*
+** Función para intercalar los colores de las filas a imprimir
+*/
 function ciclo(inicio, final, datos){
     var c = 0;
     $('.loop').html('');
@@ -136,10 +129,12 @@ function ciclo(inicio, final, datos){
     }
 }
 
- 
+/**
+ * Función que imprime el HTML de las filas
+ */
 function print_res(datos, color){
-    //var yearObj = new Date(datos.fecha);
-    //var year = yearObj.getFullYear();
+    var yearObj = new Date(datos.fecha);
+    var year = yearObj.getFullYear();
     //console.log(year)
     var n = i + 1;
     $('.loop').append(`
@@ -150,7 +145,7 @@ function print_res(datos, color){
                     <div class="col-2 col-xs-2">
                         <div class="row">
                             <div  class="col-6 col-xs-6 txt-lb">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6 txt-lb">` + datos.fecha + `</div>
+                            <div  class="col-6 col-xs-6 txt-lb">` + year + `</div>
                         </div>
                     </div>
                     <div class="col-2 col-xs-3 txt-lb">` + datos.tipo_juicio + `</div>

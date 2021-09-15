@@ -85,15 +85,16 @@ body{
 }
 .marca-agua {
     background-image:url("../imagen/pjecz-negro-plano.svg");
-    display: block;
+    display: table-cell;
     filter: invert(1);
     height: auto;
     left: 3%;
     opacity: 0.5;
     padding-bottom: 15px;
-    position:fixed;
-    top: auto;
-    width: 150px;
     padding: 10px;
+    position:absolute;
+    top: auto;
+    vertical-align: middle;
+    width: 150px;
 
 }
