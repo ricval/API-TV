@@ -1,13 +1,29 @@
 body{
-    padding: 0;
+    font-family: 'Roboto, Oswald';
     margin: 0;
-}
-.heading{
-    background: linear-gradient(rgb(0, 67, 96) 0%, rgb(0, 36, 52) 100%) white;
-    padding: 16px 0;
-    
+    padding: 0;
+    /*overflow: hidden;*/
 }
 
+
+.loop{
+    display:inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+/*.scroll-row{
+    animation: scroll 500s linear infinite backwards;
+    position:relative;
+}*/
+
+.heading{
+    background: linear-gradient(rgb(0, 67, 96) 0%, rgb(0, 36, 52) 100%) white;
+    height: 200px;
+    padding: 16px 0; 
+    position: sticky;
+    top:0;
+}
 .uppercase{
     text-transform: uppercase;
 }
@@ -15,13 +31,16 @@ body{
 .subheading{
     background: #212530;
     color:#dbb993;
+    flex: 1 1 auto;
     font-family: sans-serif;
     font-size:33px;
+    position: sticky;
+    vertical-align: middle;
 }
 
 .bl{
     border-left: solid 1px #dbb993;
-    padding: 35px 15px;
+    padding: 35px 18px;
 }
 .pdng{
     padding: 35px 15px;
@@ -30,22 +49,52 @@ body{
     padding: 25px 15px;
 }
 
+.txt-lb{
+    font-size: 22px;
+    padding: 15px 12px;
+}
 .lbl{
-    text-align: right; 
-    font-weight: 600; 
     color:#dbb993;
+    font-weight: 600; 
+    text-align: right;
+}
+
+.col-bk{
+    background-color: #fff;
 }
   
 .titulo-blanco{
     color: #dbb993;
     font-family: 'Oswald', sans-serif;
-    text-transform: capitalize;
     font-size: 65px;
+    margin-top: 25px;
+    text-transform: capitalize;
 }
    
 .colors{
     background:#003045;
-    color: #212530;
     background-color: #004360;
+    color: #212530;
     color: #dbb993;
+}
+
+.img-log{
+    height: auto;
+    position: center;
+    width: auto;
+}
+.marca-agua {
+    background-image:url("../imagen/pjecz-negro-plano.svg");
+    display: table-cell;
+    filter: invert(1);
+    height: auto;
+    left: 3%;
+    opacity: 0.5;
+    padding-bottom: 15px;
+    padding: 10px;
+    position:absolute;
+    top: auto;
+    vertical-align: middle;
+    width: 150px;
+
 }
