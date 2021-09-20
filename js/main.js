@@ -15,35 +15,43 @@ $(document).ready(function(){
     fetch(get_api_url_list_de_acu_aut(id_autoridad))
     .then(res => res.json())
     .then(data => { 
-        
+        console.log(id_autoridad);
         // imprimir listas_de_acuerdos_acuerdos
     
-        var cantidad = 3; // cantidad de registros en la lista
-        var inicio = 0;
-        var final = cantidad;
-        var interv = 8000;
+        
 
         fetch(get_api_url_list_acu(data[0].id))
         .then(res => res.json())
         .then(result => {
-
-                setInterval(function(){ 
-                    
-                    ciclo(inicio,final,result);
-                    inicio = final;
-                    final = final + cantidad;
-                    
-                    if(final > Object.keys(result).length){
-                        inicio = 0;
-                        final = cantidad;
-                    }
-                    
-                },interv);
-           
+            setInt(result);
         });
     });
 });
 
+
+/*
+**  setInterval
+*/
+var cantidad = 3; // cantidad de registros en la lista
+var inicio = 0;
+var final = cantidad;
+var interv = 8000;
+
+function setInt(result) {
+    setInterval(function(){ 
+                    
+        ciclo(inicio,final,result);
+        inicio = final;
+        final = final + cantidad;
+        
+        if(final > Object.keys(result).length){
+            inicio = 0;
+            final = cantidad;
+        }
+        
+    },interv);
+
+}
 
 /*
 ** Obtiene el ID de la autoridad
