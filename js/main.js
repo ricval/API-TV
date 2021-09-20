@@ -32,12 +32,14 @@ $(document).ready(function(){
 /*
 **  setInterval
 */
-var cantidad = 3; // cantidad de registros en la lista
-var inicio = 0;
-var final = cantidad;
-var interv = 8000;
 
 function setInt(result) {
+
+    var cantidad = 3; // cantidad de registros en la lista
+    var inicio = 0;
+    var final = cantidad;
+    var interv = 8000;
+
     setInterval(function(){ 
                     
         ciclo(inicio,final,result);
