@@ -58,7 +58,7 @@ function setname(id){
         case "127.0.0.1": api_url = 'http://justicia:8001/autoridades/'+id; break;
         default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades/"+id; break;
     }
-    console.log(api_url);
+    
     fetch(api_url)
     .then(response => response.json())
     .then(data => {
@@ -83,7 +83,7 @@ function get_autoridad_id(id){
         case "127.0.0.1": api_url = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
         default: api_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
     }
-    console.log(api_url)
+    
     fetch(api_url)
     .then(response  => response.json())
     .then(data => { 
@@ -110,17 +110,17 @@ function resultadoConsulta(id, anio){
     consulta("localhost", id, anio);
 
     $(".loop").html('<div class="row"><h1 class="text-center">cargando...</h1></div>');
-    console.log(id)
     
-    var cantidad = 3;
+    
+    var cantidad = 4;
     var inicio = 0;
     var final = cantidad;
-    var interv = 8000;
+    var interv = 5000;
     
     fetch(listas_plataforma_web_api_url)
     .then(response  => response.json())
     .then(data => {
-        setInterval(function(){ 
+         setInterval(function(){ 
             
             ciclo(inicio,final,data);
             inicio = final;
@@ -130,10 +130,12 @@ function resultadoConsulta(id, anio){
                 inicio = 0;
                 final = cantidad;
             }
-            
+       
         },interv);
     });
 }
+
+
 
 function ciclo(inicio, final, datos){
     var c = 0;

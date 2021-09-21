@@ -15,11 +15,9 @@ $(document).ready(function(){
     fetch(get_api_url_list_de_acu_aut(id_autoridad))
     .then(res => res.json())
     .then(data => { 
-        console.log(id_autoridad);
-        // imprimir listas_de_acuerdos_acuerdos
-    
         
-
+        // imprimir listas_de_acuerdos_acuerdos
+        
         fetch(get_api_url_list_acu(data[0].id))
         .then(res => res.json())
         .then(result => {
@@ -33,26 +31,24 @@ $(document).ready(function(){
 **  setInterval
 */
 
-function setInt(result) {
-
+function setInt(res) {
     var cantidad = 3; // cantidad de registros en la lista
     var inicio = 0;
     var final = cantidad;
     var interv = 8000;
-
+    
     setInterval(function(){ 
-                    
-        ciclo(inicio,final,result);
+                            
+        ciclo(inicio,final,res);
         inicio = final;
         final = final + cantidad;
         
-        if(final > Object.keys(result).length){
+        if(final > Object.keys(res).length){
             inicio = 0;
             final = cantidad;
         }
         
     },interv);
-
 }
 
 /*
