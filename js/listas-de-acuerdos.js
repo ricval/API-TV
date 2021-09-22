@@ -87,7 +87,7 @@ function get_autoridad_id(id){
     fetch(api_url)
     .then(response  => response.json())
     .then(data => { 
-        console.log(data.autoridad);
+        
         for(i = 0; i < Object.keys(data).length; i++){
             
             if(!norepeat.includes(data[i].id)){
@@ -113,25 +113,34 @@ function resultadoConsulta(id, anio){
     
     
     var cantidad = 4;
-    var inicio = 0;
-    var final = cantidad;
+    // inicio = 0;
+    //var final = cantidad;
     var interv = 5000;
+    var vuelta = 1;
+    var x = 0;
     
     fetch(listas_plataforma_web_api_url)
     .then(response  => response.json())
-    .then(data => {
-         setInterval(function(){ 
-            
-            ciclo(inicio,final,data);
-            inicio = final;
-            final = final + cantidad;
-            
-            if(final > Object.keys(data).length){
-                inicio = 0;
-                final = cantidad;
+    .then(result => {
+
+        
+        $.each(result, function(){
+           
+            print_res(result[x]);
+
+            x++;
+            vuelta++;
+
+            console.log(vuelta)
+            if(vuelta == cantidad){
+                
+                setTimeout(function(){ }, interv);
+                vuelta = 0;
             }
+            
+        });
+        
        
-        },interv);
     });
 }
 
