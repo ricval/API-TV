@@ -113,8 +113,8 @@ function resultadoConsulta(id, anio){
     
     
     var cantidad = 4;
-    // inicio = 0;
-    //var final = cantidad;
+    var inicio = 0;
+    var final = cantidad;
     var interv = 5000;
     var vuelta = 1;
     var x = 0;
@@ -124,22 +124,18 @@ function resultadoConsulta(id, anio){
     .then(result => {
 
         
-        $.each(result, function(){
-           
-            print_res(result[x]);
-
-            x++;
-            vuelta++;
-
-            console.log(vuelta)
-            if(vuelta == cantidad){
-                
-                setTimeout(function(){ }, interv);
-                vuelta = 0;
-            }
             
+        setInterval(function() {
+            
+            ciclo(inicio,final,result);
+            inicio = final;
+            final = final + cantidad;
+            
+            if(final > Object.keys(result).length){
+                inicio = 0;
+                final = cantidad;
+            }
         });
-        
        
     });
 }

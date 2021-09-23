@@ -18,37 +18,75 @@ $(document).ready(function(){
         
         // imprimir listas_de_acuerdos_acuerdos
         
-        fetch(get_api_url_list_acu(data[0].id))
+        fetch(get_api_url_list_acu(data[3].id))
         .then(res => res.json())
         .then(result => {
-            setInt(result);
+            
+            //Colores de las filas
+            var colores = [
+                bk_color =  "#FEFEFE",
+                color = "#0D0D0D"
+            ];
+            
+            var total_datos = Object.keys(result).length;
+
+            if(total_datos == 0){
+              
+                $('.loop').html('<div class="msjDat">NO SE ENCONTRARON DATOS</div>');
+                
+            }else{
+                //cantidad de datos a cargar:
+                var cantidad = 3;
+
+                //cantidad final:
+                var final = cantidad;
+
+                //Tiempo de la pausa(ms):
+                var interv = 8000;
+
+                //Índice de inicio
+                var inicio = 0;
+                
+                setInterval(function(){ 
+                    
+                    ciclo(inicio,final,result);
+                    inicio = final;
+                    final = final + cantidad;
+                    
+                    if(final > Object.keys(result).length){
+                        console.log(Object.keys(result).length)
+                        inicio = 0;
+                        final = cantidad;
+                        
+                    }
+                       
+                    
+                },interv);
+                
+            }
+            
         });
     });
 });
 
-
 /*
-**  setInterval
+** Función para intercalar los colores de las filas a imprimir
 */
-
-function setInt(res) {
-    var cantidad = 3; // cantidad de registros en la lista
-    var inicio = 0;
-    var final = cantidad;
-    var interv = 8000;
-    
-    setInterval(function(){ 
-                            
-        ciclo(inicio,final,res);
-        inicio = final;
-        final = final + cantidad;
-        
-        if(final > Object.keys(res).length){
-            inicio = 0;
-            final = cantidad;
+function ciclo(inicio, final, datos){
+    var c = 0;
+    $('.loop').html('');
+    for(i = inicio; i < final; i++){   
+        if(c % 2 == 0){
+            bk_color = "#F0EFEF";
+            color = "#0D0D0D";
+            c++;
+        }else{
+            bk_color =  "#FEFEFE";
+            color = "#0D0D0D";
+            c = 0;
         }
-        
-    },interv);
+        print_res(datos[i],color);
+    }
 }
 
 /*
@@ -113,27 +151,7 @@ function get_api_url_list_acu(id){
     }
     return lista_acuerdo_acuerdo;
 }
-
-       
-/*
-** Función para intercalar los colores de las filas a imprimir
-*/
-function ciclo(inicio, final, datos){
-    var c = 0;
-    $('.loop').html('');
-    for(i = inicio; i < final; i++){   
-        if(c % 2 == 0){
-            bk_color = "#F0EFEF";
-            color = "#0D0D0D";
-            c++;
-        }else{
-            bk_color =  "#FEFEFE";
-            color = "#0D0D0D";
-            c = 0;
-        }
-        print_res(datos[i],color);
-    }
-}
+    
 
 /**
  * Función que imprime el HTML de las filas

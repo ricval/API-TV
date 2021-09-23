@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    
 
     $(".loop").html('<div class="row"><h1 class="text-center">cargando...</h1></div>');
 
@@ -18,61 +17,65 @@ $(document).ready(function(){
         
         // imprimir listas_de_acuerdos_acuerdos
         
-        fetch(get_api_url_list_acu(data[2].id))
+        fetch(get_api_url_list_acu(data[3].id))
         .then(res => res.json())
         .then(result => {
             
-            
-            //variables para el ciclo
-            
-            var vuelta = 1;
-            var cantidad = 3;
-            var tiempo = 5000;
-            var colores = [
-                bk_color =  "#FEFEFE",
-                color = "#0D0D0D"
-            ];
-            console.log(Object.keys(result).length) ;
-            if(Object.keys(result).length == 0){
-              write("No hay datos");
+            var total_datos = Object.keys(result).length;
+
+            if(total_datos == 0){
+              
+                $('.loop').html('<div class="msjDat">NO SE ENCONTRARON DATOS</div>');
+                
             }else{
+                
+                //Tiempo de la pausa (ms):
+                var delay = 5000; 
+                
+                //cantidad de datos a cargar:
+                var cantidad = 3;
+                
+                //Colores de las filas
+                var colores = [
+                    bk_color =  "#FEFEFE",
+                    color = "#0D0D0D"
+                ];
+                
+                //índice de inicio
+                var inicio = 0;
+                
+                var total_datos=  total_datos + cantidad;
 
-                for(i = 0; i < Object.keys(result).length; i++){
+                
+                function loop(){
                     
-                    console.log(Object.keys(result).length);
-                    
-                    //alternar colores
-                    if(vuelta % 2 == 0){
-                        colores["bk_color"] = "#F0EFEF";
-                        colores["color"] = "#0D0D0D";
-                    }else{
-                        colores["bk_color"] =  "#FEFEFE";
-                        colores["color"] = "#0D0D0D";
+                    for(i = 0; i < total_datos; i++){
+                        console.log(total_datos)
+  
+                        print_res(result[inicio], colores);
+                            
+                        if(i % 2 == 0){
+                            colores["bk_color"] = "#F0EFEF";
+                            colores["color"] = "#0D0D0D";
+                        }else{
+                            colores["bk_color"] =  "#FEFEFE";
+                            colores["color"] = "#0D0D0D";
+                        }
+                        inicio++;
                     }
-
-                    vuelta++;
-
-                    if(vuelta === cantidad){
-                        //limpiar el div
-                        $('.loop').html('');
-                        setTimeout(function(){
-                            console.log(vuelta);
-                            //solo esperar 
-                        }, tiempo);
-                        //volver a empezar las vueltas:
-                        vuelta = 1;
-                    
-                    }
-                    
-                    
-                    print_res(result[i], colores);
+                        
+                    total_datos++;
                 }
-            }     
+                
+              
+                setInterval(loop, delay);  
+                
+                
+            }   
 
         });
     });
 });
-
 /*
 ** Obtiene el ID de la autoridad
 */

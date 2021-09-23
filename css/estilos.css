@@ -12,6 +12,13 @@ body{
     width: 100%;
 }
 
+.msjDat{
+    color: #004360;
+    font-size: 65px;
+    padding: 350px 80px;
+    text-align: center;
+}
+
 /*.scroll-row{
     animation: scroll 500s linear infinite backwards;
     position:relative;
