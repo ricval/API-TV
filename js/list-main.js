@@ -23,53 +23,51 @@ $(document).ready(function(){
         .then(result => {
             
             
-            
-
             //variables para el ciclo
             
             var vuelta = 1;
             var cantidad = 3;
-            var tiempo = 8000;
+            var tiempo = 5000;
             var colores = [
                 bk_color =  "#FEFEFE",
                 color = "#0D0D0D"
             ];
+            console.log(Object.keys(result).length) ;
+            if(Object.keys(result).length == 0){
+              write("No hay datos");
+            }else{
 
-            for(i = 0; i < Object.keys(result).length; i++){
-                console.log(Object.keys(result).length)
-                
-                
+                for(i = 0; i < Object.keys(result).length; i++){
+                    
+                    console.log(Object.keys(result).length);
+                    
+                    //alternar colores
+                    if(vuelta % 2 == 0){
+                        colores["bk_color"] = "#F0EFEF";
+                        colores["color"] = "#0D0D0D";
+                    }else{
+                        colores["bk_color"] =  "#FEFEFE";
+                        colores["color"] = "#0D0D0D";
+                    }
 
-                //alternar colores
-                if(vuelta % 2 == 0){
-                    colores["bk_color"] = "#F0EFEF";
-                    colores["color"] = "#0D0D0D";
-                }else{
-                    colores["bk_color"] =  "#FEFEFE";
-                    colores["color"] = "#0D0D0D";
-                }
-                
+                    vuelta++;
 
-                print_res(result[i], colores);
-
-                vuelta++;
-
-                if(vuelta == cantidad){
-
-                    setTimeout(() => {
+                    if(vuelta === cantidad){
                         //limpiar el div
                         $('.loop').html('');
-                        //solo esperar
-                    }, tiempo);
-
-                    //volver a empezar las vueltas:
-                    vuelta = 1;
+                        setTimeout(function(){
+                            console.log(vuelta);
+                            //solo esperar 
+                        }, tiempo);
+                        //volver a empezar las vueltas:
+                        vuelta = 1;
                     
+                    }
+                    
+                    
+                    print_res(result[i], colores);
                 }
-
-
-            }
-                    
+            }     
 
         });
     });
@@ -137,13 +135,6 @@ function get_api_url_list_acu(id){
     }
     return lista_acuerdo_acuerdo;
 }
-
-
-
-
-
-
-
 
 /**
  * Función que imprime el HTML de las filas
