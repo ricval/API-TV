@@ -18,7 +18,8 @@ $(document).ready(function(){
         
         // imprimir listas_de_acuerdos_acuerdos
         
-        fetch(get_api_url_list_acu(data[3].id))
+        
+        fetch(get_api_url_list_acu(data[1].id))
         .then(res => res.json())
         .then(result => {
             
@@ -30,11 +31,29 @@ $(document).ready(function(){
             
             var total_datos = Object.keys(result).length;
 
+            //fecha
+            var fe1 = moment().format(data[1].fecha);
+            console.log(fe1);
+            // var day = new Date(data[3].fecha);
+            // var dayWrapper = moment(day);
+            // console.log(dayWrapper)
+            var fechaAyer = moment(fe1).subtract(1, 'days');
+            console.log(fechaAyer);
+
+            
+
+            //endfecha
+            
+
             if(total_datos == 0){
               
                 $('.loop').html('<div class="msjDat">NO SE ENCONTRARON DATOS</div>');
                 
             }else{
+
+               
+
+
                 //cantidad de datos a cargar:
                 var cantidad = 3;
 

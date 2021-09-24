@@ -7,6 +7,7 @@ $(document).ready(function(){
     
     //Agregar el nombre corto de la autoridad en el encabezado
     setname(id_autoridad);
+
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
     var id_list_aut;
@@ -22,10 +23,16 @@ $(document).ready(function(){
         .then(result => {
             
             var total_datos = Object.keys(result).length;
-
+           
+            var fechaNow = moment();
+            var s = data.fecha;
+                var fechaAyer = moment().subtract(1, data.fecha).calendar();
+                console.log(fechaNow);
             if(total_datos == 0){
-              
+                
                 $('.loop').html('<div class="msjDat">NO SE ENCONTRARON DATOS</div>');
+                moment().subtract(3, data.fecha).calendar();
+               
                 
             }else{
                 
@@ -85,6 +92,10 @@ function get_id_aut(){
     return urlParams.get('id')
 
 }
+
+/*
+** Ver fecha
+*/
 
 
 /*
