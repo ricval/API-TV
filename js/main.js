@@ -9,17 +9,31 @@ $(document).ready(function(){
     //Agregar el nombre corto de la autoridad en el encabezado
     setname(id_autoridad);
     
+    //Agregar el nombre del distrio al encabezado
+    distrito(id_autoridad)
+
     //Consultar las listas de acuerdos relacionadas con la autoridad
     var id_list_aut;
+
+    var fechaNow = new Date().getDay();
+    var fechaAnt = ""; 
+
+
+    if(fechaNow === 1){
+        fechaAnt = fechaFra().toISOString().slice(0,10);
+        console.log(fechaAnt);
+    }else{
+        fechaAnt = fechaAyer().toISOString().slice(0,10);
+        console.log(fechaAnt);
+    }
      
-    fetch(get_api_url_list_de_acu_aut(id_autoridad))
+    fetch(get_api_url_list_de_acu_aut(id_autoridad, fechaAnt))
     .then(res => res.json())
     .then(data => { 
         
         // imprimir listas_de_acuerdos_acuerdos
         
-        
-        fetch(get_api_url_list_acu(data[1].id))
+        fetch(get_api_url_list_acu(data[0].id))
         .then(res => res.json())
         .then(result => {
             
@@ -31,19 +45,6 @@ $(document).ready(function(){
             
             var total_datos = Object.keys(result).length;
 
-            //fecha
-            var fe1 = moment().format(data[1].fecha);
-            console.log(fe1);
-            // var day = new Date(data[3].fecha);
-            // var dayWrapper = moment(day);
-            // console.log(dayWrapper)
-            var fechaAyer = moment(fe1).subtract(1, 'days');
-            console.log(fechaAyer);
-
-            
-
-            //endfecha
-            
 
             if(total_datos == 0){
               
@@ -51,11 +52,8 @@ $(document).ready(function(){
                 
             }else{
 
-               
-
-
                 //cantidad de datos a cargar:
-                var cantidad = 3;
+                var cantidad = 4;
 
                 //cantidad final:
                 var final = cantidad;
@@ -78,7 +76,6 @@ $(document).ready(function(){
                         final = cantidad;
                         
                     }
-                       
                     
                 },interv);
                 
@@ -87,6 +84,36 @@ $(document).ready(function(){
         });
     });
 });
+
+
+/*
+** Recargar la página cada 10 minutos
+*/
+function actualizar(){location.reload(true);}
+//Función para actualizar cada 5 segundos(5000 milisegundos)
+setInterval("actualizar()", 600000);
+
+/*
+** Fecha ayer
+*/
+
+const fechaAyer = () => {
+    let hoy = new Date();
+    let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
+    let ayer = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
+    return ayer;
+}
+
+/*
+** Fecha Lunes
+*/
+const fechaFra = () => {
+    let hoy = new Date();
+    let DIA_EN_MILISEGUNDOS = 72 * 60 * 60 * 1000;
+    let viernes = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
+    return viernes;
+}
+
 
 /*
 ** Función para intercalar los colores de las filas a imprimir
@@ -130,10 +157,23 @@ function setname(id){
     .then(res => res.json())
     .then(data => {
         
-        $("#myTxt").html(data.autoridad_corta + "  -  "+ data.autoridad);
+        $("#myTxt").html(data.autoridad_corta + "  -  ");
     });
 }
 
+/*
+**  Establecer el nombre del distrito de acuerdo al ID
+*/
+function distrito(id) {
+    var api_url_dis = get_distrito(id);
+
+    fetch(api_url_dis)
+    .then(res => res.json)
+    .then(data => {
+        $("#myTxt").html(data.distrito_corto);
+        console.log(data.distrito_corto)
+    })
+}
 
 /*
 **  Funciones para identificar la URL de las APIs
@@ -149,13 +189,13 @@ function get_api_url_autoridades(id){
     return autoridad_id_url;
 }
 
-function get_api_url_list_de_acu_aut(id){
+function get_api_url_list_de_acu_aut(id, fecha){
     var lista_acuerdo_autoridad;
     switch(location.hostname){
-        case "localhost": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        case "172.30.37.233": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        case "127.0.0.1": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id="+id; break;
-        default: lista_acuerdo_autoridad = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id="+id; break;
+        case "localhost": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id +"&fecha=" + fecha; break;
+        case "172.30.37.233": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + "&fecha=" + fecha; break;
+        case "127.0.0.1": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id + "&fecha=" + fecha; break;
+        default: lista_acuerdo_autoridad = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos?autoridad_id=" + id + "&fecha=" + fecha; break;
     }
     return lista_acuerdo_autoridad;
 }
@@ -169,6 +209,17 @@ function get_api_url_list_acu(id){
         default: lista_acuerdo_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
     }
     return lista_acuerdo_acuerdo;
+}
+
+function get_distrito(id){
+    var distrito_id_url;
+    switch(location.hostname){
+        case "localhost": distrito_id_url = "http://172.30.37.233:8001/distritos/"+id; break;
+        case "172.30.37.233": distrito_id_url = "http://172.30.37.233:8001/distritos/"+id; break;
+        case "127.0.0.1": distrito_id_url = "http://172.30.37.233:8001/distritos/"+id; break;
+        default: distrito_id_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/distritos/"+id; break;
+    }
+    return distrito_id_url;
 }
     
 
