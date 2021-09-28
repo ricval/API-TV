@@ -5,9 +5,13 @@ $(document).ready(function(){
 
     //obtener el ID en el parÃ¡metro
     var id_autoridad = get_id_aut();
+
+    
     
     //Agregar el nombre corto de la autoridad en el encabezado
     setname(id_autoridad);
+
+    var id_dis = "";
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
     var id_list_aut;
@@ -24,13 +28,15 @@ $(document).ready(function(){
         console.log(fechaAnt);
     }
      
-    fetch(get_api_url_list_de_acu_aut(id_autoridad, fechaAnt))
+    fetch(get_listas_acuerdos_autoridad_id_url(id_autoridad, fechaAnt))
     .then(res => res.json())
     .then(data => { 
+       
         
+        console.log(data.distrito);
         // imprimir listas_de_acuerdos_acuerdos
         
-        fetch(get_api_url_list_acu(data[0].id))
+        fetch(get_listas_acuerdos_acuerdos_url(data[0].id))
         .then(res => res.json())
         .then(result => {
             
@@ -68,7 +74,6 @@ $(document).ready(function(){
                     final = final + cantidad;
                     
                     if(final > Object.keys(result).length){
-                        console.log(Object.keys(result).length)
                         inicio = 0;
                         final = cantidad;
                         
@@ -153,11 +158,20 @@ function setname(id){
     fetch(api_url)
     .then(res => res.json())
     .then(data => {
-        
+       
         $("#myTxt").html(data.autoridad_corta);
     });
 }
 
+function obtener_distrito(id) {
+    var api_url_dis = get_distrito(id);
+    fetch(api_url_dis)
+    .then(res => res.json())
+    .then(data => {
+       
+        console.log(data.autoridad_corta);
+    });
+}
 
 /*
 **  Funciones para identificar la URL de las APIs
@@ -173,7 +187,7 @@ function get_api_url_autoridades(id){
     return autoridad_id_url;
 }
 
-function get_api_url_list_de_acu_aut(id, fecha){
+function get_listas_acuerdos_autoridad_id_url(id, fecha){
     var lista_acuerdo_autoridad;
     switch(location.hostname){
         case "localhost": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id +"&fecha=" + fecha; break;
@@ -184,7 +198,7 @@ function get_api_url_list_de_acu_aut(id, fecha){
     return lista_acuerdo_autoridad;
 }
 
-function get_api_url_list_acu(id){
+function get_listas_acuerdos_acuerdos_url(id){
     var lista_acuerdo_acuerdo;
     switch(location.hostname){
         case "localhost": lista_acuerdo_acuerdo = "http://172.30.37.233:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
@@ -193,6 +207,34 @@ function get_api_url_list_acu(id){
         default: lista_acuerdo_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
     }
     return lista_acuerdo_acuerdo;
+}
+
+/*** obtener el distrito de la autoridad */
+
+function get_distritos_id_autoridades(id){
+    var autoridad_distrito_id;
+    console.log(autoridad_distrito_id);
+    switch(location.hostname){
+        case "localhost": autoridad_distrito_id = "http://172.30.37.233:8001/autoridades?distrito_id="+id; break;
+        case "172.30.37.233": autoridad_distrito_id = 'http://172.30.37.233:8001/autoridades?distrito_id='+id; break;
+        case "127.0.0.1": autoridad_distrito_id ='http://172.30.37.233:8001/autoridades?distrito_id='+id; break;
+        default: autoridad_distrito_id = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/autoridades?distrito_id="+id; break;
+    }
+    return autoridad_id_url;
+}
+ /*
+ ** obtener id del distrito
+ */
+function get_distrito(){
+    var distrito_id_url;
+    console.log(distrito_id_url);
+    switch(location.hostname){
+        case "localhost": distrito_id_url = "http://172.30.37.233:8001/distritos"; break;
+        case "172.30.37.233": distrito_id_url = "http://172.30.37.233:8001/distritos"; break;
+        case "127.0.0.1": distrito_id_url = "http://172.30.37.233:8001/distritos"; break;
+        default: distrito_id_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/distritos"; break;
+    }
+    return distrito_id_url;
 }
     
 
