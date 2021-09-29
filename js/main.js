@@ -6,20 +6,15 @@ $(document).ready(function(){
     //obtener el ID en el parÃ¡metro
     var id_autoridad = get_id_aut();
 
-    
-    
     //Agregar el nombre corto de la autoridad en el encabezado
     setname(id_autoridad);
-
-    var id_dis = "";
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
     var id_list_aut;
 
     var fechaNow = new Date().getDay();
     var fechaAnt = ""; 
-
-
+    
     if(fechaNow === 1){
         fechaAnt = fechaFra().toISOString().slice(0,10);
         console.log(fechaAnt);
@@ -27,6 +22,7 @@ $(document).ready(function(){
         fechaAnt = fechaAyer().toISOString().slice(0,10);
         console.log(fechaAnt);
     }
+    $("#fecha").html(fechaAnt);
      
     fetch(get_listas_acuerdos_autoridad_id_url(id_autoridad, fechaAnt))
     .then(res => res.json())
@@ -88,10 +84,10 @@ $(document).ready(function(){
 
 
 /*
-** Recargar la pÃ¡gina cada 10 minutos
+** Recargar la pagina cada 10 minutos
 */
 function actualizar(){location.reload(true);}
-//FunciÃ³n para actualizar cada 5 segundos(5000 milisegundos)
+//Funcion para actualizar cada 5 segundos(5000 milisegundos)
 setInterval("actualizar()", 600000);
 
 /*
@@ -117,7 +113,7 @@ const fechaFra = () => {
 
 
 /*
-** FunciÃ³n para intercalar los colores de las filas a imprimir
+** Funcion para intercalar los colores de las filas a imprimir
 */
 function ciclo(inicio, final, datos){
     var c = 0;
@@ -161,7 +157,7 @@ function setname(id){
        .then(resp => resp.json())
        .then(result => {
 
-           $("#myTxt").html(data.autoridad_corta + " - " + result.distrito_corto);
+           $("#myTxt").html(result.distrito_corto + ",  &nbsp;" + data.autoridad_corta );
        })
     });
 }
@@ -219,27 +215,19 @@ function get_url_distrito(id){
     
 
 /**
- * FunciÃ³n que imprime el HTML de las filas
+ * Funcion que imprime el HTML de las filas
  */
 function print_res(datos, color){
-    var yearObj = new Date(datos.fecha);
-    var year = yearObj.getFullYear();
-    //console.log(year)
     var n = i + 1;
     $('.loop').append(`
-        <div style="border-bottom: solid 4px #6f6s6f" class="row"> 
-            <div style="font-size:32px;" class="col">
+        <div style="border-bottom: solid 4px #6f6s6f" class="row align-middle"> 
+            <div style="font-size:32px;" class="col align-middle">
                 <div class="row text-center pdng2" style="background-color: ` + bk_color + `; color:` + color + `;">
-                    <div class="col-1 col-xs-1" style="color:#0C0C0C; font-weight:900;">`+ n +`</div>
-                    <div class="col-2 col-xs-2">
-                        <div class="row">
-                            <div  class="col-6 col-xs-6 txt-lb">` + datos.id + `</div>
-                            <div  class="col-6 col-xs-6 txt-lb">` + year + `</div>
-                        </div>
-                    </div>
-                    <div class="col-2 col-xs-3 txt-lb">` + datos.tipo_juicio + `</div>
-                    <div class="col-4 col-xs-3 txt-lb">` + datos.actor  + `</div>
-                    <div class="col-3 col-xs-3 txt-lb">` + datos.demandado + ` </div>
+                    <div class="col-1 col-xs-1 align-middle" style="color:#0C0C0C; font-weight:900;">`+ n +`</div>
+                    <div class="col-2 col-xs-2 align-middle txt-lb row-height">` + datos.expediente + `</div>
+                    <div class="col-2 col-xs-3 align-middle txt-lb row-height">` + datos.tipo_juicio + `</div>
+                    <div class="col-4 col-xs-3 align-middle txt-lb row-height">` + datos.actor  + `</div>
+                    <div class="col-3 col-xs-3 align-middle txt-lb row-height">` + datos.demandado + ` </div>
                 </div> 
             </div>
         </div>
