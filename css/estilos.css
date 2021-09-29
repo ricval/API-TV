@@ -2,7 +2,7 @@ body{
     font-family: 'Roboto, Oswald';
     margin: 0;
     padding: 0;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 
@@ -10,6 +10,17 @@ body{
     display:inline-block;
     height: 100%;
     width: 100%;
+}
+
+.msjDat{
+    color: #004360;
+    font-size: 65px;
+    padding: 350px 80px;
+    text-align: center;
+}
+
+#fecha{
+    font-size: 35px;
 }
 
 /*.scroll-row{
