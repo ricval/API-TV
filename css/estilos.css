@@ -73,11 +73,15 @@ body{
 .col-bk{
     background-color: #fff;
 }
+
+.row-height{
+    height: 180px;
+}
   
 .titulo-blanco{
     color: #dbb993;
-    font-family: 'Oswald', sans-serif;
-    font-size: 65px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 75px;
     margin-top: 25px;
     text-transform: capitalize;
 }
