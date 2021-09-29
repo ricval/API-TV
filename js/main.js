@@ -5,9 +5,13 @@ $(document).ready(function(){
 
     //obtener el ID en el parÃ¡metro
     var id_autoridad = get_id_aut();
+
+    
     
     //Agregar el nombre corto de la autoridad en el encabezado
     setname(id_autoridad);
+
+    var id_dis = "";
     
     //Consultar las listas de acuerdos relacionadas con la autoridad
     var id_list_aut;
@@ -24,13 +28,14 @@ $(document).ready(function(){
         console.log(fechaAnt);
     }
      
-    fetch(get_api_url_list_de_acu_aut(id_autoridad, fechaAnt))
+    fetch(get_listas_acuerdos_autoridad_id_url(id_autoridad, fechaAnt))
     .then(res => res.json())
     .then(data => { 
+       
         
         // imprimir listas_de_acuerdos_acuerdos
         
-        fetch(get_api_url_list_acu(data[0].id))
+        fetch(get_listas_acuerdos_acuerdos_url(data[0].id))
         .then(res => res.json())
         .then(result => {
             
@@ -56,9 +61,9 @@ $(document).ready(function(){
                 var final = cantidad;
 
                 //Tiempo de la pausa(ms):
-                var interv = 8000;
+                var interv = 6000;
 
-                //Ãndice de inicio
+                //Ã ndice de inicio
                 var inicio = 0;
                 
                 setInterval(function(){ 
@@ -68,7 +73,6 @@ $(document).ready(function(){
                     final = final + cantidad;
                     
                     if(final > Object.keys(result).length){
-                        console.log(Object.keys(result).length)
                         inicio = 0;
                         final = cantidad;
                         
@@ -153,8 +157,12 @@ function setname(id){
     fetch(api_url)
     .then(res => res.json())
     .then(data => {
-        
-        $("#myTxt").html(data.autoridad_corta);
+       fetch(get_url_distrito(data.distrito_id))
+       .then(resp => resp.json())
+       .then(result => {
+
+           $("#myTxt").html(data.autoridad_corta + " - " + result.distrito_corto);
+       })
     });
 }
 
@@ -173,7 +181,7 @@ function get_api_url_autoridades(id){
     return autoridad_id_url;
 }
 
-function get_api_url_list_de_acu_aut(id, fecha){
+function get_listas_acuerdos_autoridad_id_url(id, fecha){
     var lista_acuerdo_autoridad;
     switch(location.hostname){
         case "localhost": lista_acuerdo_autoridad = "http://172.30.37.233:8001/listas_de_acuerdos?autoridad_id=" + id +"&fecha=" + fecha; break;
@@ -184,7 +192,7 @@ function get_api_url_list_de_acu_aut(id, fecha){
     return lista_acuerdo_autoridad;
 }
 
-function get_api_url_list_acu(id){
+function get_listas_acuerdos_acuerdos_url(id){
     var lista_acuerdo_acuerdo;
     switch(location.hostname){
         case "localhost": lista_acuerdo_acuerdo = "http://172.30.37.233:8001/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
@@ -193,6 +201,20 @@ function get_api_url_list_acu(id){
         default: lista_acuerdo_acuerdo = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/listas_de_acuerdos_acuerdos?lista_de_acuerdo_id="+id; break;
     }
     return lista_acuerdo_acuerdo;
+}
+
+ /*
+ ** obtener id del distrito
+ */
+function get_url_distrito(id){
+    var distrito_id_url;
+    switch(location.hostname){
+        case "localhost": distrito_id_url = "http://172.30.37.233:8001/distritos/" + id; break;
+        case "172.30.37.233": distrito_id_url = "http://172.30.37.233:8001/distritos/" + id; break;
+        case "127.0.0.1": distrito_id_url = "http://172.30.37.233:8001/distritos/" + id; break;
+        default: distrito_id_url = "https://plataforma-web-api-dot-pjecz-268521.uc.r.appspot.com/distritos/" + id; break;
+    }
+    return distrito_id_url;
 }
     
 
