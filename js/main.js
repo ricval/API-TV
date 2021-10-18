@@ -224,9 +224,11 @@ function print_res(datos, color){
             <div style="font-size:32px;" class="col align-middle">
                 <div class="row text-center pdng2" style="background-color: ` + bk_color + `; color:` + color + `;">
                     <div class="col-1 col-xs-1 align-middle" style="color:#0C0C0C; font-weight:900;">`+ n +`</div>
-                    <div class="col-2 col-xs-2 align-middle txt-lb row-height">` + datos.expediente + `</div>
-                    <div class="col-2 col-xs-3 align-middle txt-lb row-height">` + datos.tipo_juicio + `</div>
-                    <div class="col-4 col-xs-3 align-middle txt-lb row-height">` + datos.actor  + `</div>
+                    <div class="col-1 col-xs-1 align-middle txt-lb row-height">` + datos.expediente + `</div>
+                    <div class="col-1 col-xs-1 align-middle txt-lb row-height">` + datos.folio + `</div>
+                    <div class="col-2 col-xs-2 align-middle txt-lb row-height">` + datos.tipo_acuerdo + `</div>
+                    <div class="col-2 col-xs-2 align-middle txt-lb row-height">` + datos.tipo_juicio + `</div>
+                    <div class="col-2 col-xs-2 align-middle txt-lb row-height">` + datos.actor  + `</div>
                     <div class="col-3 col-xs-3 align-middle txt-lb row-height">` + datos.demandado + ` </div>
                 </div> 
             </div>
