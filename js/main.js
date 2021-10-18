@@ -49,13 +49,13 @@ $(document).ready(function(){
                 $('.loop').html('<div class="msjDat">NO SE ENCONTRARON DATOS</div>');
                 
             }else{
-
+                
                 //cantidad de datos a cargar:
                 var cantidad = 4;
-
+                
                 //cantidad final:
                 var final = cantidad;
-
+                
                 //Tiempo de la pausa(ms):
                 var interv = 6000;
 
@@ -64,6 +64,7 @@ $(document).ready(function(){
                 
                 setInterval(function(){ 
                     
+                    
                     ciclo(inicio,final,result);
                     inicio = final;
                     final = final + cantidad;
@@ -71,7 +72,6 @@ $(document).ready(function(){
                     if(final > Object.keys(result).length){
                         inicio = 0;
                         final = cantidad;
-                        
                     }
                     
                 },interv);
